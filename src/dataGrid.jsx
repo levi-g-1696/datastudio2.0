@@ -19,7 +19,7 @@ const columns = [
   },
 ];
 
-const rows = [
+const rows2 = [
   { id: 10, Name: 'Negev Minerals', IPaddr: '84.112.113.114', Port: 2021, Protocol:'FTP' },
   { id: 20, Name: 'Bazan', IPaddr: '84.12.112.114', Port: 2021, Protocol:'FTP' },
   { id:55, Name: 'Agan', IPaddr: '84.182.113.119', Port: 2021, Protocol:'FTP' },
@@ -31,7 +31,8 @@ const rows = [
   { id: 90, Name: 'Netivot mun', IPaddr: '84.112.113.2', Port: 2021, Protocol:'FTP' },
 ];
 
-export default function DataTable() {
+export default function DataTable(props) {
+  const rows= props.destinations
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid

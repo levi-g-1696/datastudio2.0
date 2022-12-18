@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import DestinationComp from './DestinationsComp'
+import DestinationCompV2c from './DestinationCompClass';
 import ResponsiveAppBar from './CrudButtons'
 
 function TabPanel(props) {
@@ -66,7 +67,7 @@ export default function ObjectsComp() {
         
       </Tabs>
       <TabPanel value={value} index={0}>
-       <DestinationComp />
+       <DestinationCompV2c />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

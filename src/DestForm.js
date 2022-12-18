@@ -23,7 +23,7 @@ export default class DestForm extends React.Component {
 
         let inputName = e.target.name;
         let newValue = e.target.value;
-        console.log('inputName=', {inputName}, 'NV=',{newValue})
+      
         this.setState({ [inputName]: newValue });
 
     }
@@ -45,12 +45,11 @@ export default class DestForm extends React.Component {
 
     submit(e) {
         e.preventDefault();//DISABLE AUTO SUBMIT
-        let values = "Name=" + this.state.Name + "," + "IPaddr=" + this.state.ipaddr;
-        console.log(values);
+        
       //  alert(values);
         const newDestination = {ID:this.state.ID, Name: this.state.Name, Protocol: this.state.Protocol ,ipaddr:this.state.ipaddr,
         Port:this.state.Port,VirtPath:this.state.ID,User:this.state.User,Psw:this.state.Psw};
-        this.props.getNewDestination("newDestination")
+        this.props.getNewDestination(newDestination)
         //make an object and return it with callback
         // this.props.getNewDestination(this.state.)
         //AJAX REQUEST ASP.NET API POST CONTRLLER
