@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { useState } from 'react';
+
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -32,7 +34,21 @@ const rows2 = [
 ];
 
 export default function DataTable(props) {
+  //props: array destinations
+//         function getSelectedID
   const rows= props.destinations
+  let callback= (newSelection) => {
+         
+         
+    setSelectionModel(newSelection[0]);
+    console.log (newSelection[0])
+   
+//    alert ("sel changed "+ newSelection[0])
+  //  this.props.getSelectedID(newSelection[0]);
+  this.props.getSelectedID("099")
+  }
+  //const selectionCallback= props.getSelectedID
+  const [selectionModel, setSelectionModel] = React.useState([]);
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -41,7 +57,12 @@ export default function DataTable(props) {
         columns={columns}
         pageSize={10}
         rowsPerPageOptions={[10]}
-        checkboxSelection
+        enableMultiRowSelection='false'
+       
+        onSelectionModelChange={callback}
+        selectionModel={selectionModel}
+          
+
       />
     </div>
   );

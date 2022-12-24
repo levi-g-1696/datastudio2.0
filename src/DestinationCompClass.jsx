@@ -33,7 +33,7 @@ export default class DestinationCompV2c extends Component {
                   
             ],
             currentDestID: "-1",
-            currentDestName: "",
+            currentDestName: "defoult",
             currentDestProtocol: "",
             currentDestIpaddr: "",
             currentDestPort: "",
@@ -51,7 +51,11 @@ handleStateValue() {
   const max=99999
   const min= 9000
   return Math.floor(Math.random() * (max - min) + min);}
+//----------------------
+testCall(x)
+{alert("test call 55 sucess " +x)}
 
+testCall2= (idval)=>{this.setState({currentDestName:idval})}
 //--------------------------------------------
      handleClickNewEditRemove = control => {
         // 👇️ take parameter passed from Child component
@@ -74,7 +78,7 @@ handleStateValue() {
           return <><h5>removee control but</h5></>;
         }
         else if (this.state.userControl == "update") {
-          return <SaveButtons />;
+          return <h5>edit destination properties</h5>;
         }
     
       }
@@ -87,13 +91,13 @@ handleStateValue() {
           </>;
         }
         else if (this.state.userControl == "read") {
-          return <> <DataTable destinations= {this.state.destinations}/></>;
+          return <DataTable destinations= {this.state.destinations} getSelectedID= {this.testCall2}  />;
         }
         else if (this.state.userControl == "remove") {
-          return <> <DataTable /></>;
+          return <> <h5>remove</h5></>;
         }
         else if (this.state.userControl == "update") {
-          return <> <h5>update</h5></>;
+          return <> <h5>update {this.state.currentDestName}</h5></>;
         }
     
       }
@@ -115,14 +119,29 @@ handleStateValue() {
     this.setState({destinations:this.state.destinations.concat(newDestination )})
     this.setState({userControl:"read"})
         // 
-
+        alert("edit dest 125")
        }
        // alert ("step2 received "+ this.state.currentDestID )}
         //let id = this.state.newDest.ID }
 
 
-        //----------------------------------------------------------------------
-
+        //-------------  e d i t  ---------------------------------------------------------
+        
+        getSelectedID = (f) => {alert ("succesfully called " ) 
+       //   this.setState({
+         // currentDestName:dest.Name,
+        //  currentDestID:sel
+        //  currentDestIpaddr:dest.ipaddr,
+        //  currentDestPort:dest.Port,
+        //  currentDestProtocol:dest.Protocol,
+       //   currentDestVirtPath:dest.VirtPath,
+        //  currentDestUser:dest.User,
+         // currentDestPsw:dest.Psw
+         
+    //  })
+      console.log("destcompClass. sel id= " +f)}
+    
+//--------------------------------------------------
     render() {
 
 

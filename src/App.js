@@ -1,5 +1,7 @@
 import  React from 'react';
 import MainBody from './mainBody';
+import DestsTable from './DestTable'
+import DestTable  from './DestTableV2'
 
 export default function App() {
 let click="empty"  
@@ -7,9 +9,10 @@ const demoHanleClick= (arg)=>{click= arg}
   return (
  <>
 	<Head/>
-	<MainBody />
+	{/* <MainBody /> */}
 
-
+{/* <DestsTable /> */}
+<DestTable/>
 	<Bottom/>
 </>
   );}
