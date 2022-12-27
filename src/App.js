@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, { useState } from 'react';
 import MainBody from './mainBody';
 import DestsTable from './DestTable'
 import DestTable  from './DestTableV2'
@@ -7,7 +7,14 @@ import DestValueGrid from './destValueGrid';
  
 export default function App() {
 let click="empty" 
-const tstcallback=(id)=> {alert("success to get id:"+id)} 
+const [selectedID,setSelectedID] = useState(-1)
+const tstcallback=(id)=> {
+	// make status for all false 
+	// only one true
+	setSelectedID(id)
+	 
+	alert("success to get id:"+id)
+} 
 const demoHanleClick= (arg)=>{click= arg}
   return (
  <>
@@ -17,8 +24,8 @@ const demoHanleClick= (arg)=>{click= arg}
 {/* <DestsTable /> */}
 {/* <DestTable/> */}
 <DestHeadGrid   />
-<DestValueGrid status={true} ID="575 "  callback= {tstcallback} IP="2.33.44.55"  Name="Negev Min" Port="21" Protocol="Ftp"/>
-<DestValueGrid  status={false} ID="578 "  callback= {tstcallback} IP="2.33.44.90"  Name="galil Min" Port="21" Protocol="Ftp"/>
+<DestValueGrid selectedID={selectedID} ID="575 "  getSelectedID= {tstcallback} IP="2.33.44.55"  Name="Negev Min" Port="21" Protocol="Ftp"/>
+<DestValueGrid   selectedID={selectedID} ID="578 "  getSelectedID= {tstcallback} IP="2.33.44.90"  Name="galil Min" Port="21" Protocol="Ftp"/>
 
 	<Bottom/>
 </>
