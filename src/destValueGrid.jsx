@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ControlledCheckbox from './checkedComp';
+import Button from '@mui/material/Button';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,11 +15,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-export default function DestValueGrid(props) {
+export default function DestValueGridOLD(props) {
     let idFromParent = props.selectedID
    // const callback = props.getSelectedID
     const [selectedID, setSelectedID] = React.useState(idFromParent)
-    const statval= (selectedID == props.ID)
+    const statval= (idFromParent === props.ID)
     console.log(props.ID +"  selID:"+ selectedID +"   propsID:"+props.ID)
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -41,11 +42,20 @@ export default function DestValueGrid(props) {
 
                 <Grid item xs={0.5}>
                     <Item>
+                    <Stack spacing={2} direction="row">
+           
+         
+           <Button size="small" variant="contained" onClick={event => handleClick("update")} >edit</Button> 
+           <Button  size="small" variant="contained" color="error" onClick={event => handleClick("remove")} >remove</Button>
+
+         </Stack>
                         <ControlledCheckbox statval={statval} callback={(stat) => {
                             if (stat) {
                                 setSelectedID(props.ID)
                                 props.getSelectedID(selectedID)
+                                
                             }
+                            else {}
 
                         }} />
                     </Item>

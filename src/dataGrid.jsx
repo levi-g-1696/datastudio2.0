@@ -19,6 +19,13 @@ const columns = [
     width: 70,
     
   },
+  {
+    field: "click",
+    headerName: "Click",
+    type: <button />,    /*this field stores the buttons*/
+    width: 90,
+  },
+  
 ];
 
 const rows2 = [

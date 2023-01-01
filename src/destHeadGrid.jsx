@@ -16,20 +16,23 @@ export default function DestHeadGrid() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={1}>
-        <Grid item xs={0.5} >
+        <Grid item xs={1} >
           <Item>ID</Item>
         </Grid>
         <Grid item xs={2} >
           <Item>Name</Item>
         </Grid>
-        <Grid item xs={1} >
+        <Grid item xs={2} >
           <Item>IP address</Item>
         </Grid>
         <Grid item xs={1}>
           <Item>Port</Item>
         </Grid>     
-        <Grid item xs={1}>
+        <Grid item xs={1.5}>
           <Item>Protocol</Item>
+        </Grid> 
+        <Grid item xs={2.5}>
+          <Item>Actions</Item>
         </Grid>     
       </Grid>
     </Box>

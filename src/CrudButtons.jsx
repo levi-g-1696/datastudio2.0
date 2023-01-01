@@ -10,12 +10,11 @@ const removeRed= red[500]
 export default function CrudButtonsPanelComp({handleClick}) {
         
         return (
-          <Stack spacing={2} direction="row">
+          <Stack spacing={60} direction="row">
            
-            <Button size="small" variant="contained" onClick={event => handleClick("create")} >new</Button>
-            <Button size="small" variant="contained" onClick={event => handleClick("update")} >edit</Button> 
-            <Button  size="small" variant="contained" color="error" onClick={event => handleClick("remove")} >remove</Button>
-
+            <Button size="small" variant="contained" onClick={event => handleClick("Create")} >New</Button>
+            <Button size="small" variant="contained" onClick={event => handleClick("Save")} >Save</Button> 
+           
           </Stack>
         );
       }

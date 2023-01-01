@@ -4,8 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import DestinationComp from './DestinationsComp'
-import DestinationCompV2c from './DestinationCompClass';
+// import DestinationComp from './DestinationsComp'
+ import DestinationCompV2c from './DestinationCompClass';
 import ResponsiveAppBar from './CrudButtons'
 //import DestinationCompV3c from './destsFull'
 

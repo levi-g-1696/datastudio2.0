@@ -9,7 +9,9 @@ import DataTable from './dataGrid'
 import CrudButtonsPanelComp from './CrudButtons'
 import SaveButtons from './saveButtons';
 import DestForm from './DestForm'
+import DestValueGrid from './destValueGridV23';
 import { Component } from 'react';
+import DestHeadGrid from './destHeadGrid';
 
 
 export default class DestinationCompV2c extends Component {
@@ -34,7 +36,7 @@ export default class DestinationCompV2c extends Component {
             ],
             currentDestID: "-1",
             currentDestName: "defoult",
-            currentDestProtocol: "",
+            currentDestProtocol: "",                                                                                                                                                                                                                                                                                                                     
             currentDestIpaddr: "",
             currentDestPort: "",
             currentDestVirtPath: "",
@@ -101,6 +103,9 @@ testCall2= (idval)=>{this.setState({currentDestName:idval})}
         }
     
       }
+      //===========================================\
+     ONremove= (arg)=>{alert ("clicked REMOVE row-"+arg)}
+ ONedit= (arg)=>{alert ("clicked Edit row-"+arg)}
     //----------------- add new  ---------------------------------------------------
     getNewDestination = dest => {
        // alert ("succesfully received " +dest.ID ) 
@@ -143,7 +148,9 @@ testCall2= (idval)=>{this.setState({currentDestName:idval})}
     
 //--------------------------------------------------
     render() {
-
+const destinationsTable= this.state.destinations.map((destrow)=> 
+<DestValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={destrow.id }  IP={destrow.IPaddr}  Name="Negev Min" Port="21" Protocol="Ftp"/>
+)
 
 
         return (
@@ -152,8 +159,11 @@ testCall2= (idval)=>{this.setState({currentDestName:idval})}
                     <Stack spacing={1}>
                         {this.cntrButtons()}
                         {/* <CrudButtonsPanelComp handleClick={handleClick}  /> */}
-                        {this.content()}
+                        {/* {this.content()} */}
                         {/* <DataTable /> */}
+                        <DestHeadGrid   />
+                          {destinationsTable}
+                        
 
                     </Stack>
                 </Box >
