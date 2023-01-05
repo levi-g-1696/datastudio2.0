@@ -7,10 +7,10 @@ import Stack from '@mui/material/Stack'
 export default class DestForm extends React.Component {
     constructor(props) {
         super(props);
-       const newID= props.ID
-        this.state = {ID:newID, Name: "", Protocol: "" ,ipaddr:"",
-		               Port:"",VirtPath:"",User:"",Psw:""};
-
+        alert ("protocol val on destform input:")
+        this.state = {ID:props.currentDestination.ID, Name: props.currentDestination.Name, Protocol:props.currentDestination.Protocol,IP:props.currentDestination.IP,
+		               Port:props.currentDestination.Port,VirtPath:"",User:"",Psw:""};
+        
       //  this.nameChanged = this.nameChanged.bind(this);
       //  this.emailChanged = this.emailChanged.bind(this);
         this.submit = this.submit.bind(this);
@@ -47,9 +47,10 @@ export default class DestForm extends React.Component {
         e.preventDefault();//DISABLE AUTO SUBMIT
         
       //  alert(values);
-        const newDestination = {ID:this.state.ID, Name: this.state.Name, Protocol: this.state.Protocol ,ipaddr:this.state.ipaddr,
+        const newDestination = {ID:this.state.ID, Name: this.state.Name, Protocol: this.state.Protocol ,IP:this.state.IP,
         Port:this.state.Port,VirtPath:this.state.ID,User:this.state.User,Psw:this.state.Psw};
-        this.props.getNewDestination(newDestination)
+
+        this.props.onFormSubmit(newDestination)
         //make an object and return it with callback
         // this.props.getNewDestination(this.state.)
         //AJAX REQUEST ASP.NET API POST CONTRLLER
@@ -61,13 +62,13 @@ export default class DestForm extends React.Component {
 
 
     render() {
-       
+     
         return (
 
             <div className="container" style={{ width: "700px" }}>
                 <div className='jumbotron' >
 
-                <label for="ID" className="col-sm-2 col-form-label">ID: {this.props.ID}</label>
+                <label for="ID" className="col-sm-2 col-form-label">ID: {this.props.currentDestination.ID}</label>
                     <form onSubmit={this.submit}>
                         <div className="form-group row">
                             <label for="Name" className="col-sm-2 col-form-label">Name:</label>
@@ -79,16 +80,22 @@ export default class DestForm extends React.Component {
                             <input type="text" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
 							onChange={this.inputChanged} className="form-control" name="IPaddr" id="IPaddr"  placeholder="0.0.0.0" value={this.state.IP}   />
                         </div> */}
-                         
                          <div className="form-group row">
-                            <label for="ipaddr" className="col-sm-2 col-form-label">Ip address</label>
-                            <input type="text" onChange={this.inputChanged} className="form-control" name="ipaddr" id="ipaddr" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" placeholder="0.0.0.0" value={this.state.ipaddr} />
-                            
+                            <label for="IP" className="form-label mt-2">IP address</label>
+                            <input value={this.state.IP} type="text" 	onChange={this.inputChanged} className="form-control" name="IP" id="IP"  
+                            pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" placeholder="0.0.0.0"    />
                         </div>
+                         {/* <div className="form-group row">
+                            <label for="ipaddr" className="col-sm-2 col-form-label">Ip address</label>
+                            <input value={this.state.IP} type="text" onChange={this.inputChanged} className="form-control" name="ipaddr" id="ipaddr" maxlength="15" size="15" 
+                            pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" placeholder="0.0.0.0"  />
+                            
+                        </div> */}
 						<div className="form-group row">
                             <label for="Port" className="form-label mt-2">Port</label>
                             <input value={this.state.Port} type="number" 	onChange={this.inputChanged} className="form-control" name="Port" id="Port"  placeholder="21"   />
                         </div>
+
 						<div className="form-group row">
                             <label for="Protocol" className="col-sm-2 col-form-label">Transfer protocol</label>
                             <input type="text" onChange={this.inputChanged} className="form-control" name="Protocol" id="Protocol" placeholder="" value={this.state.Protocol} />

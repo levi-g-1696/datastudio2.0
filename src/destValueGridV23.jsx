@@ -47,7 +47,7 @@ export default function DestValueGrid(props) {
                         <Stack spacing={2} direction="row">
 
 
-                            <Button size="small" variant="contained" onClick={event => props.onEdit(props.ID)} >edit</Button>
+                            <Button size="small" variant="contained" onClick={event => props.onEdit({ID:props.ID,Name:props.Name,IP:props.IP,Port:props.Port,Protocol:props.Protocol})} >edit</Button>
                             <Button size="small" variant="contained" color="error" onClick={event => props.onRemove(props.ID)} >remove</Button>
 
                         </Stack>

@@ -37,8 +37,8 @@ export default class DestinationCompV2c extends Component {
       ],
       currentDestID: "-1",
       currentDestName: "defoult",
-      currentDestProtocol: "",
-      currentDestIpaddr: "",
+      currentDestProtocol: "empty",
+      currentDestIP: "",
       currentDestPort: "",
       currentDestVirtPath: "",
       currentDestUser: "",
@@ -56,47 +56,38 @@ export default class DestinationCompV2c extends Component {
     return Math.floor(Math.random() * (max - min) + min);
   }
   //----------------------
-  handleClickSave= ()=>{alert("save")}
-  handleClickNew =()=>{ this.setState({ userControl: "create"}) ;
-                          }
+  handleClickSave = () => { alert("save") }
+  handleClickNew = () => {
+   
+    this.setState({ 
+      userControl: "create" });
+  }
   //--------------------------------------------
-  
+
   //------------------------------------------------------
   returnToReadMode = () => {
     this.setState({ userControl: "read" })
   }
   //---------------------------------------
-  
-  //-------------------------------------------------------------------------
-   content = () => {
-      let str1= this.randomInteger()
-      if (this.state.userControl == "create") {
-        return <>    
-          <DestForm handleCancel= {this.returnToReadMode} getNewDestination={this.getNewDestination} ID={str1}/>
-        </>;
-      }}
-  //     else if (this.state.userControl == "read") {
-  //       return <DataTable destinations= {this.state.destinations} getSelectedID= {this.testCall2}  />;
-  //     }
-  //     else if (this.state.userControl == "remove") {
-  //       return <> <h5>remove</h5></>;
-  //     }
-  //     else if (this.state.userControl == "update") {
-  //       return <> <h5>update {this.state.currentDestName}</h5></>;
-  //     }
 
-  //   }
-  //===========================================\
-  ONremove = (itemID) => { this.setState({destinations:[...this.state.destinations].filter((dest)=>dest.id !==itemID)})
-     }
-  ONedit = (arg) => { alert("clicked Edit row-" + arg) }
+  //-------------------------------------------------------------------------
+
+  ONremove = (itemID) => {
+    this.setState({ destinations: [...this.state.destinations].filter((dest) => dest.id !== itemID) })
+  }
+  ONedit = (dest) => {
+
+    this.setState({ userControl: "edit" })
+    this.setState({ currentDestID: dest.ID, currentDestName:dest.Name, currentDestIP:dest.IP ,currentDestPort:dest.Port,currentDestProtocol:dest.Protocol })
+  
+  }
   //----------------- add new  ---------------------------------------------------
   getNewDestination = dest => {
-    // alert ("succesfully received " +dest.ID ) 
+     
     this.setState({
       currentDestName: dest.Name,
       currentDestID: dest.ID,
-      currentDestIpaddr: dest.ipaddr,
+      currentDestIP: dest.IP,
       currentDestPort: dest.Port,
       currentDestProtocol: dest.Protocol,
       currentDestVirtPath: dest.VirtPath,
@@ -104,14 +95,14 @@ export default class DestinationCompV2c extends Component {
       currentDestPsw: dest.Psw
     })
     let newDestination = {
-      id: dest.ID, Name: dest.Name, Protocol: this.state.currentDestProtocol, IPaddr: dest.ipaddr,
+      id: dest.ID, Name: dest.Name, Protocol: dest.Protocol, IPaddr: dest.IP,
       Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
     };
 
     this.setState({ destinations: this.state.destinations.concat(newDestination) })
     this.setState({ userControl: "read" })
     // 
-    alert("edit dest 125")
+
   }
   // alert ("step2 received "+ this.state.currentDestID )}
   //let id = this.state.newDest.ID }
@@ -119,32 +110,98 @@ export default class DestinationCompV2c extends Component {
 
   //-------------  e d i t  ---------------------------------------------------------
 
-  
+  onEditDestination = dest => {
+    let id= dest.ID
+   
+    let modDest= [...this.state.destinations].filter((item) => item.id !== id)
+       let newDestination = {
+      id: dest.ID, Name: dest.Name, Protocol: dest.Protocol, IPaddr: dest.IP,
+      Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
+    };
+    modDest= modDest.concat(newDestination)
+    this.setState({ destinations: modDest})
+    
+    this.setState({ userControl: "read" })
+    // 
+
+  }
 
   //--------------------------------------------------
   render() {
     const destinationsTable = this.state.destinations.map((destrow) =>
-      <DestValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={destrow.id} IP={destrow.IPaddr} Name="Negev Min" Port="21" Protocol="Ftp" />
-    )
+      <DestValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={destrow.id} IP={destrow.IPaddr} Name={destrow.Name} Port={destrow.Port} Protocol={destrow.Protocol} />)
+
+    const contentV2 = () => {
+      let str1 = this.randomInteger()
+      if (this.state.userControl == "create") {
+        // if (this.state.userControl == "create") {
+        return <>
+       
+           <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.getNewDestination} ID={str1}
+            currentDestination={{ID:str1, Name:"",IP: "",Port:"",
+              Protocol:""}} 
+            />
+        </>
+      }
+      else if (this.state.userControl == "edit") {
+        
+         alert ("protocol val in destcomp: "+ this.state.currentDestProtocol)
+        return <>
+          <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.onEditDestination}  
+           currentDestination={{ID:this.state.currentDestID, Name:this.state.currentDestName,IP: this.state.currentDestIP,Port:this.state.currentDestPort,
+          Protocol:this.state.currentDestProtocol}} 
+    
+          />
+        </>
+      }
+      else if (this.state.userControl == "read") {
+
+        // if (this.state.userControl == "create") {
+        return <>
+          <DestHeadGrid />
+          {destinationsTable}
+        </>
+      }
+    }
+    const headComponent = () => {
+      if (this.state.userControl == "create") {
+        // if (this.state.userControl == "create") {
+        return <>
+          <h4>Create a new destination object</h4>
+        </>
+      }
+      else if (this.state.userControl == "edit") {
+
+        // if (this.state.userControl == "create") {
+        return <>
+          <h4>Edit destination properties</h4>
+        </>
+      }
+      else if (this.state.userControl == "read") {
+
+        // if (this.state.userControl == "create") {
+        return <>
+          <Stack spacing={60} direction="row">
+
+            <Button size="small" variant="contained" onClick={event => this.handleClickNew()} >New</Button>
+            <Button size="small" variant="contained" onClick={event => this.handleClickSave()} >Save</Button>
+
+          </Stack>
+        </>
+      }
+    }
+
 
 
     return (
 
       <Box sx={{ width: 800 }}>
         <Stack spacing={1}>
-          <Stack spacing={60} direction="row">
-
-            <Button size="small" variant="contained" onClick={event => this.handleClickNew()} >New</Button>
-            <Button size="small" variant="contained" onClick={event =>this.handleClickSave()} >Save</Button>
-
-          </Stack>
-          {/* {this.cntrButtons()} */}
-          {/* <CrudButtonsPanelComp handleClick={handleClick}  /> */}
-          {this.content()}
-          {/* <DataTable /> */}
-          <DestHeadGrid />
-          {destinationsTable}
-
+         
+          {headComponent()}
+          
+          {contentV2()}
+          
 
         </Stack>
       </Box >
