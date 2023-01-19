@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
  import DestinationCompV2c from './DestinationCompClass';
 import ResponsiveAppBar from './CrudButtons'
 //import DestinationCompV3c from './destsFull'
+import MonListFormV2 from './monListFormV2';
+import 	MonNamesApp from './monListFormV3'
 
 
 function TabPanel(props) {
@@ -35,7 +37,7 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
+const checkcallback=(s)=> {alert("got:"+s)}
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
@@ -73,7 +75,7 @@ export default function ObjectsComp() {
        {/* <DestinationCompV3c /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <	MonNamesApp MonNamesString= {"monWS,monPREC10,monT,monRH"} GetMonitorsNames= {checkcallback} />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three

@@ -13,42 +13,34 @@ import DestValueGrid from './destValueGridV23';
 import { Component } from 'react';
 import DestHeadGrid from './destHeadGrid';
 import Button from '@mui/material/Button';
+import MonListHeadGrid from './monListHeadGrid';
+import MonListValueGrid from './monListValueGrid';
 import MonListForm from './monListForm';
 
-export default class DestinationCompV2c extends Component {
+export default class MonitorListComp extends Component {
   constructor() {
     super();
     this.state = {
       userControl: "read",
       userAction: "",
-      destinations: [
+      monLists: [
 
 
-        { id: 10, Name: 'Negev Minerals', IPaddr: '84.112.113.114', Port: 2021, Protocol: 'FTP' },
-        { id: 20, Name: 'Bazan', IPaddr: '84.12.112.114', Port: 2021, Protocol: 'FTP' },
-        { id: 55, Name: 'Agan', IPaddr: '84.182.113.119', Port: 2021, Protocol: 'FTP' },
-        { id: 156, Name: 'yehuda pladot', IPaddr: '84.112.113.154', Port: 21, Protocol: 'FTP' },
-        { id: 159, Name: 'Psagot Plastic', IPaddr: '84.112.113.4', Port: 21, Protocol: 'FTP' },
-        { id: 68, Name: 'DeadSea Plants', IPaddr: '84.112.13.14', Port: 2021, Protocol: 'FTP' },
-        { id: 70, Name: 'Asbest Galil', IPaddr: '84.112.3.114', Port: 22, Protocol: 'SFTP' },
-        { id: 80, Name: 'Pri Katif', IPaddr: '84.112.110.11', Port: 2021, Protocol: 'FTP' },
-        { id: 90, Name: 'Netivot mun', IPaddr: '84.112.113.2', Port: 2021, Protocol: 'FTP' },
+        { id: 1, Name: 'Meteorology1m', MonitorNames: 'T2m,RH,WS,WD'},
+        { id: 2, Name: 'Meteorology10m-std', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre'},
+        { id: 5, Name: 'Meteorology10m-full', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre,monPREC10' },
+        { id: 15, Name: 'Precipitation', MonitorNames: 'monPREC10,monBV' },
+        
 
       ],
-      currentDestID: "-1",
-      currentDestName: "defoult",
-      currentDestProtocol: "empty",
-      currentDestIP: "",
-      currentDestPort: "",
-      currentDestVirtPath: "",
-      currentDestUser: "",
-      currentDestPsw: ""
+      currentMonListID: "-1",
+      currentMonListName: "defoult",
+      currentMonitoNames:"mon1"
+      
     }
   }
   //--------------------------------------------------------
-  handleStateValue() {
-    this.setState({ currentDestName: "val987987" });
-  }
+ 
   //-------------------------------------------------------------
   randomInteger() {
     const max = 99999
@@ -73,12 +65,13 @@ export default class DestinationCompV2c extends Component {
   //-------------------------------------------------------------------------
 
   ONremove = (itemID) => {
-    this.setState({ destinations: [...this.state.destinations].filter((dest) => dest.id !== itemID) })
+   
+    this.setState({ monLists: [...this.state.monLists].filter((ml) => ml.id !== itemID) })
   }
-  ONedit = (dest) => {
+  ONedit = (item) => {
 
     this.setState({ userControl: "edit" })
-    this.setState({ currentDestID: dest.ID, currentDestName:dest.Name, currentDestIP:dest.IP ,currentDestPort:dest.Port,currentDestProtocol:dest.Protocol })
+    this.setState({ currentMonListID: item.ID, currentMonListName:item.Name, currentMonitoNames:item.MonitorNames  })
   
   }
   //----------------- add new  ---------------------------------------------------
@@ -99,7 +92,7 @@ export default class DestinationCompV2c extends Component {
       Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
     };
 
-    this.setState({ destinations: this.state.destinations.concat(newDestination) })
+    this.setState({ monLists: this.state.monLists.concat(newDestination) })
     this.setState({ userControl: "read" })
     // 
 
@@ -113,13 +106,13 @@ export default class DestinationCompV2c extends Component {
   onEditDestination = dest => {
     let id= dest.ID
    
-    let modDest= [...this.state.destinations].filter((item) => item.id !== id)
+    let modDest= [...this.state.monLists].filter((item) => item.id !== id)
        let newDestination = {
       id: dest.ID, Name: dest.Name, Protocol: dest.Protocol, IPaddr: dest.IP,
       Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
     };
     modDest= modDest.concat(newDestination)
-    this.setState({ destinations: modDest})
+    this.setState({ monLists: modDest})
     
     this.setState({ userControl: "read" })
     // 
@@ -128,42 +121,45 @@ export default class DestinationCompV2c extends Component {
 
   //--------------------------------------------------
   render() {
-    const destinationsTable = this.state.destinations.map((destrow) =>
-      <DestValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={destrow.id} IP={destrow.IPaddr} Name={destrow.Name} Port={destrow.Port} Protocol={destrow.Protocol} />)
+    const monLisTable = this.state.monLists.map((mlistrow) =>
+      <MonListValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={mlistrow.id}  Name={mlistrow.Name}  MonitorNames={mlistrow.MonitorNames} />)
 
     const contentV2 = () => {
       let str1 = this.randomInteger()
-      if (this.state.userControl == "create") {
-        // if (this.state.userControl == "create") {
-        return <>
+     
+         if (this.state.userControl == "create") { <h4>create new monlist form</h4>
+        // return <>
        
-           <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.getNewDestination} ID={str1}
-            currentDestination={{ID:str1, Name:"",IP: "",Port:"",
-              Protocol:""}} 
-            />
-        </>
+        //    <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.getNewDestination} ID={str1}
+        //     currentDestination={{ID:str1, Name:"",IP: "",Port:"",
+        //       Protocol:""}} 
+        //     />
+        // </>
       }
       else if (this.state.userControl == "edit") {
         
      
         return <>
-          <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.onEditDestination}  
+          {/* <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.onEditDestination}  
            currentDestination={{ID:this.state.currentDestID, Name:this.state.currentDestName,IP: this.state.currentDestIP,Port:this.state.currentDestPort,
           Protocol:this.state.currentDestProtocol}} 
     
-          />
+          /> */}
         </>
       }
       else if (this.state.userControl == "read") {
 
         // if (this.state.userControl == "create") {
         return <>
-          <DestHeadGrid />
-          {destinationsTable}
-          <MonListForm></MonListForm>
+          <MonListHeadGrid />
+         {monLisTable}
+          
+          
         </>
       }
     }
+    //========================================================================================================
+
     const headComponent = () => {
       if (this.state.userControl == "create") {
         // if (this.state.userControl == "create") {
@@ -202,9 +198,9 @@ export default class DestinationCompV2c extends Component {
           {headComponent()}
           
           {contentV2()}
-          
-
-        </Stack>
+          <MonListForm />
+       
+        </Stack> 
       </Box >
 
     );

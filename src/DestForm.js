@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack'
 export default class DestForm extends React.Component {
     constructor(props) {
         super(props);
-        alert ("protocol val on destform input:")
         this.state = {ID:props.currentDestination.ID, Name: props.currentDestination.Name, Protocol:props.currentDestination.Protocol,IP:props.currentDestination.IP,
 		               Port:props.currentDestination.Port,VirtPath:"",User:"",Psw:""};
         
@@ -46,7 +45,7 @@ export default class DestForm extends React.Component {
     submit(e) {
         e.preventDefault();//DISABLE AUTO SUBMIT
         
-      //  alert(values);
+   
         const newDestination = {ID:this.state.ID, Name: this.state.Name, Protocol: this.state.Protocol ,IP:this.state.IP,
         Port:this.state.Port,VirtPath:this.state.ID,User:this.state.User,Psw:this.state.Psw};
 
