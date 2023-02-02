@@ -48,7 +48,9 @@ export default class MonNamesApp extends Component {
       
     }
 
-     
+     delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
     //Sync state.value to Add button 
     onChange = (e) => {
         this.setState({ value: e.target.value });
@@ -77,24 +79,15 @@ export default class MonNamesApp extends Component {
     //Add new to do task
     onAddMon = (e) => {
         e.preventDefault();
-        let localMonNames=[]
+
         const obj = {
             name: this.state.value,
             id: Math.random(),
         };
         if (this.state.value !== "") {
-            localMonNames=   [...this.state.MonNames,obj]
             this.setState({ MonNames: this.state.MonNames.concat(obj) });
             this.setState({ value: "" });//Clean Text BOX
         }
-        let monString=""
-       localMonNames.forEach((item)=>{     
-monString= monString + item.name +","
-       })
-       monString = monString.slice(0, -1);
-      
-      this.props.GetMonitorsNames(monString)
-
     };
 
     //Search id in list and update the item name in list
@@ -114,9 +107,8 @@ monString= monString + item.name +","
 monString= monString + item.name +","
        })
        monString = monString.slice(0, -1);
-      
+            
       this.props.GetMonitorsNames(monString)
-
     };
     onSubmitEditmon = (e) => {
         e.preventDefault();
@@ -216,8 +208,8 @@ const listV3= this.state.MonNames.map((mon) => {
                             />
                             {" "}
                             <button onClick={this.onAddMon}>Add Item</button>
-                            {/* {"................ "}  */}
-                            {/* <button onClick={this.onSubmitObj}>Save</button> */}
+                            {"................ "} 
+                            <button onClick={this.onSubmitObj}>Save</button>
                         </form>
                     ) : (
                         <form onSubmit={this.onSubmitEditmon}>

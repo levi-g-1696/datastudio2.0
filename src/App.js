@@ -4,10 +4,13 @@ import Appf from './basicfield2';
 
 import DestHeadGrid from './destHeadGrid';
 import DestValueGrid from './destValueGridV23';
-import MonitorListComp from './MonListComp';
+import MonitorListComp from './monListComp';
 import BasicTextFields from './basicField';
 import BasicTextFields2 from './basicfield2';
-import MonNamesApp from './monListFormV3';
+//import MonNamesApp from './monListFormV3';
+import MonListComp from './monListComp'
+import StationNameForm from './statinNameForm';
+import StationFormPart1 from './stationFormP1';
 
 export default function App() {
 	let click = "empty"
@@ -38,6 +41,11 @@ export default function App() {
 			{/* <DestValueGrid onRemove={ONremove} onEdit={ONedit} ID="575 "   IP="2.33.44.55"  Name="Negev Min" Port="21" Protocol="Ftp"/>
 <DestValueGrid   onRemove={ONremove} onEdit={ONedit} ID="578 "   IP="2.33.44.90"  Name="galil Min" Port="21" Protocol="Ftp"/>  */}
 
+        {/* <	MonNamesApp MonNamesString= {"monWS,monPREC10,monT,monRH"} GetMonitorsNames= {checkcallback} /> */}
+{/* <MonListCompV3 MonNamesString= {"monWS,monPREC10,monT,monRH"} GetMonitorsNames= {alert ("alert")} /> */}
+{/* <StationNameForm Name="meteo 10" id= "7117"/> */}
+{/* <MonListComp /> */}
+{/* <StationFormPart1 currentName={"BBBB"} currentID={"6677"}           /> */}
 			<Bottom />
 		</>
 	);

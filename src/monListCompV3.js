@@ -29,14 +29,11 @@ export default class MonNamesApp extends Component {
         
          })
         this.state = {
-            StationName:"",
-            id:"",
-            currentNameValue: "", 
             MonNames: [...objArr], //list
             value: "",  // on screen form value 
             editing: false,   // what are we doing now
             currentid: "",     // what element we are changing
-            currentMonValue: "",   // element value
+            currentValue: "",   // element value
 
         }
       //  let namesArr=  this.props.MonNamesString.split(",");
@@ -53,13 +50,10 @@ export default class MonNamesApp extends Component {
     onChange = (e) => {
         this.setState({ value: e.target.value });
     };
-    onNameChange = (e) => {
-        this.setState({ currentNameValue:  e.target.value});
-    }; 
 
-    //Get The Id of mon to delete
-    //create new array by filtering all mons except tasl width itemId 
-    onDeleteMon = (itemId) => {
+    //Get The Id of task to delete
+    //create new array by filtering all tasks except tasl width itemId 
+    onDeleteTask = (itemId) => {
         this.setState({
             MonNames: [...this.state.MonNames].filter((m) => m.id !== itemId),
         });
@@ -67,34 +61,25 @@ export default class MonNamesApp extends Component {
 
     //Change State To Edit
     //- currentid : id edited task
-    //- currentMonValue: value
+    //- currentValue: value
     onToggleEdit = (mon) => {
         this.setState({ editing: true });
         this.setState({ currentid: mon.id });
-        this.setState({ currentMonValue: mon.name });
+        this.setState({ currentValue: mon.name });
     };
 
     //Add new to do task
-    onAddMon = (e) => {
+    onAddTask = (e) => {
         e.preventDefault();
-        let localMonNames=[]
+
         const obj = {
             name: this.state.value,
             id: Math.random(),
         };
         if (this.state.value !== "") {
-            localMonNames=   [...this.state.MonNames,obj]
             this.setState({ MonNames: this.state.MonNames.concat(obj) });
             this.setState({ value: "" });//Clean Text BOX
         }
-        let monString=""
-       localMonNames.forEach((item)=>{     
-monString= monString + item.name +","
-       })
-       monString = monString.slice(0, -1);
-      
-      this.props.GetMonitorsNames(monString)
-
     };
 
     //Search id in list and update the item name in list
@@ -114,25 +99,18 @@ monString= monString + item.name +","
 monString= monString + item.name +","
        })
        monString = monString.slice(0, -1);
-      
+            
       this.props.GetMonitorsNames(monString)
-
     };
     onSubmitEditmon = (e) => {
         e.preventDefault();
 
-        this.onEditmon(this.state.currentid, this.state.currentMonValue);
+        this.onEditmon(this.state.currentid, this.state.currentValue);
         this.setState({ editing: false });
-    };
-    onSubmitName = (e) => {
-        e.preventDefault();
-
-       
-        this.setState({ StationName: e.target.value});
     };
 
     onEditInputChange = (e) => {
-        this.setState({ currentMonValue: e.target.value });
+        this.setState({ currentValue: e.target.value });
     };
 
 
@@ -144,7 +122,7 @@ monString= monString + item.name +","
             <li className="mon_item">
                 {mon.name}
                 <button onClick={() => this.onToggleEdit(mon)}>Edit</button> {/*  */}
-                <button onClick={() => this.onDeleteMon(mon.id)}>Remove</button>
+                <button onClick={() => this.onDeleteTask(mon.id)}>Remove</button>
             </li>
 
 
@@ -191,7 +169,7 @@ const listV3= this.state.MonNames.map((mon) => {
                     <Item>
                         <Stack spacing={2} direction="row">
                             <Button size="small" variant="contained" onClick={()=>(this.onToggleEdit(mon))} >edit</Button>
-                            <Button size="small" variant="contained" color="error" onClick={()=>(this.onDeleteMon(mon.id))} >remove</Button>
+                            <Button size="small" variant="contained" color="error" onClick={()=>(this.onDeleteTask(mon.id))} >remove</Button>
                         </Stack>
                     </Item>
                 </Grid>
@@ -205,26 +183,24 @@ const listV3= this.state.MonNames.map((mon) => {
             <>
             
                 <div className="App">
-               
                     {this.state.editing === false ? (
-
-                        <form onSubmit={this.onAddMon}>
+                        <form onSubmit={this.onAddTask}>
                             <input
                                 placeholder="monitor Tag"
                                 value={this.state.value}
                                 onChange={this.onChange}
                             />
                             {" "}
-                            <button onClick={this.onAddMon}>Add Item</button>
-                            {/* {"................ "}  */}
-                            {/* <button onClick={this.onSubmitObj}>Save</button> */}
+                            <button onClick={this.onAddTask}>Add Item</button>
+                            {"................ "} 
+                            <button onClick={this.onSubmitObj}>Save</button>
                         </form>
                     ) : (
                         <form onSubmit={this.onSubmitEditmon}>
                             <input
-                                placeholder="edit your monitor"
-                                value={this.state.currentMonValue}
-                                name={this.state.currentMonValue}
+                                placeholder="edit your task"
+                                value={this.state.currentValue}
+                                name={this.state.currentValue}
                                 onChange={this.onEditInputChange}
                             />
                             <button onClick={this.onSubmitEditmon}>Update Item</button>

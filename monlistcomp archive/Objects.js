@@ -9,9 +9,8 @@ import DestinationCompV2c from './DestinationCompClass';
 import ResponsiveAppBar from './CrudButtons'
 //import DestinationCompV3c from './destsFull'
 import MonListFormV2 from './monListFormV2';
-//import MonNamesApp from './monListFormV3'
+import MonNamesApp from './monListFormV3'
 import MonitorListComp from './monListComp';
-import ButtonTest from './buttontest';
 
 
 function TabPanel(props) {
@@ -52,7 +51,6 @@ export default function ObjectsComp() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-   
   };
 
   return (
@@ -78,13 +76,12 @@ export default function ObjectsComp() {
         {/* <DestinationCompV3c /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <MonitorListComp />
+        {/* <MonitorListComp /> */}
         {/* <	MonNamesApp MonNamesString= {"monWS,monPREC10,monT,monRH"} GetMonitorsNames= {checkcallback} /> */}
-      
+        <h4>object. monlistcom option</h4>
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
-        {/* <ButtonTest callback={alert("getcancel click ")} /> */}
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four

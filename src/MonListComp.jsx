@@ -15,7 +15,8 @@ import DestHeadGrid from './destHeadGrid';
 import Button from '@mui/material/Button';
 import MonListHeadGrid from './monListHeadGrid';
 import MonListValueGrid from './monListValueGrid';
-import MonListForm from './monListForm';
+import MonListFormV3 from './monListFormV3';
+import StationFormP1 from './stationFormP1'
 
 export default class MonitorListComp extends Component {
   constructor() {
@@ -26,21 +27,21 @@ export default class MonitorListComp extends Component {
       monLists: [
 
 
-        { id: 1, Name: 'Meteorology1m', MonitorNames: 'T2m,RH,WS,WD'},
-        { id: 2, Name: 'Meteorology10m-std', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre'},
+        { id: 1, Name: 'Meteorology1m', MonitorNames: 'T2m,RH,WS,WD' },
+        { id: 2, Name: 'Meteorology10m-std', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre' },
         { id: 5, Name: 'Meteorology10m-full', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre,monPREC10' },
         { id: 15, Name: 'Precipitation', MonitorNames: 'monPREC10,monBV' },
-        
+
 
       ],
       currentMonListID: "-1",
       currentMonListName: "defoult",
-      currentMonitoNames:"mon1"
-      
+      currentMonitoNames: "mon1"
+
     }
   }
   //--------------------------------------------------------
- 
+
   //-------------------------------------------------------------
   randomInteger() {
     const max = 99999
@@ -50,9 +51,10 @@ export default class MonitorListComp extends Component {
   //----------------------
   handleClickSave = () => { alert("save") }
   handleClickNew = () => {
-   
-    this.setState({ 
-      userControl: "create" });
+
+    this.setState({
+      userControl: "create"
+    });
   }
   //--------------------------------------------
 
@@ -61,117 +63,80 @@ export default class MonitorListComp extends Component {
     this.setState({ userControl: "read" })
   }
   //---------------------------------------
-
-  //-------------------------------------------------------------------------
+  handleCancel = () => {
+    alert("get cancel from stationFormP1")
+    // this.props.handleCancel();
+  }
+  //-======================================================================
 
   ONremove = (itemID) => {
-   
+
     this.setState({ monLists: [...this.state.monLists].filter((ml) => ml.id !== itemID) })
   }
+  //=======================================================================================
   ONedit = (item) => {
-
+    this.setState({ currentMonListID: item.ID, currentMonListName: item.Name, currentMonitoNames: item.MonitorNames })
     this.setState({ userControl: "edit" })
-    this.setState({ currentMonListID: item.ID, currentMonListName:item.Name, currentMonitoNames:item.MonitorNames  })
-  
+    
+
   }
   //----------------- add new  ---------------------------------------------------
-  getNewDestination = dest => {
-     
-    this.setState({
-      currentDestName: dest.Name,
-      currentDestID: dest.ID,
-      currentDestIP: dest.IP,
-      currentDestPort: dest.Port,
-      currentDestProtocol: dest.Protocol,
-      currentDestVirtPath: dest.VirtPath,
-      currentDestUser: dest.User,
-      currentDestPsw: dest.Psw
-    })
-    let newDestination = {
-      id: dest.ID, Name: dest.Name, Protocol: dest.Protocol, IPaddr: dest.IP,
-      Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
-    };
+  getNew = mon => {
 
-    this.setState({ monLists: this.state.monLists.concat(newDestination) })
+    this.setState({
+      currentMonListName: mon.Name,
+      currentMonListID: mon.id,
+      currentMonitoNames: mon.Monitors
+
+
+    })
+
+    let newArr =[...this.state.monLists].filter((ml) => ml.id !== mon.id)
+    const newMonList= {id: mon.id, Name: mon.Name, MonitorNames: mon.Monitors}
+    this.setState({ monLists: newArr.concat(newMonList) })
     this.setState({ userControl: "read" })
     // 
 
   }
-  // alert ("step2 received "+ this.state.currentDestID )}
-  //let id = this.state.newDest.ID }
+
 
 
   //-------------  e d i t  ---------------------------------------------------------
 
-  onEditDestination = dest => {
-    let id= dest.ID
-   
-    let modDest= [...this.state.monLists].filter((item) => item.id !== id)
-       let newDestination = {
-      id: dest.ID, Name: dest.Name, Protocol: dest.Protocol, IPaddr: dest.IP,
-      Port: dest.Port, VirtPath: dest.VirtPath, User: dest.User, Psw: dest.Psw
-    };
-    modDest= modDest.concat(newDestination)
-    this.setState({ monLists: modDest})
-    
-    this.setState({ userControl: "read" })
-    // 
+  // onEditMonList = mon => {
+  //   let id = mon.id
 
-  }
+  //   let modMonList = [...this.state.monLists].filter((item) => item.id !== id)
+  //   let newM = {
+  //     id: mon.id, Name: mon.name
+  //   };
+  //   modMonList = modMonList.concat(newM)
+  //   this.setState({ monLists: modMonList })
+
+  //   this.setState({ userControl: "read" })
+  //   // 
+
+  // }
 
   //--------------------------------------------------
   render() {
     const monLisTable = this.state.monLists.map((mlistrow) =>
-      <MonListValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={mlistrow.id}  Name={mlistrow.Name}  MonitorNames={mlistrow.MonitorNames} />)
-
-    const contentV2 = () => {
-      let str1 = this.randomInteger()
-     
-         if (this.state.userControl == "create") { <h4>create new monlist form</h4>
-        // return <>
-       
-        //    <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.getNewDestination} ID={str1}
-        //     currentDestination={{ID:str1, Name:"",IP: "",Port:"",
-        //       Protocol:""}} 
-        //     />
-        // </>
-      }
-      else if (this.state.userControl == "edit") {
-        
-     
-        return <>
-          {/* <DestForm handleCancel={this.returnToReadMode} onFormSubmit={this.onEditDestination}  
-           currentDestination={{ID:this.state.currentDestID, Name:this.state.currentDestName,IP: this.state.currentDestIP,Port:this.state.currentDestPort,
-          Protocol:this.state.currentDestProtocol}} 
-    
-          /> */}
-        </>
-      }
-      else if (this.state.userControl == "read") {
-
-        // if (this.state.userControl == "create") {
-        return <>
-          <MonListHeadGrid />
-         {monLisTable}
-          
-          
-        </>
-      }
-    }
-    //========================================================================================================
+      <MonListValueGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={mlistrow.id} Name={mlistrow.Name} MonitorNames={mlistrow.MonitorNames} />)
+    //===============  headComponent   (buttons)   =========================================================================================
 
     const headComponent = () => {
+
       if (this.state.userControl == "create") {
         // if (this.state.userControl == "create") {
         return <>
-          <h4>Create a new destination object</h4>
+          <h4>Create a new monitors list object</h4>
         </>
       }
       else if (this.state.userControl == "edit") {
 
         // if (this.state.userControl == "create") {
         return <>
-          <h4>Edit destination properties</h4>
+          <h4>Edit monitor list object properties</h4>
         </>
       }
       else if (this.state.userControl == "read") {
@@ -187,6 +152,34 @@ export default class MonitorListComp extends Component {
         </>
       }
     }
+    //=====================  contentV2 =====================================================================================================
+    const contentV2 = () => {
+      let str1 = this.randomInteger()
+
+      if (this.state.userControl == "create") {
+        return (         
+            <StationFormP1 currentName={""} currentID={this.randomInteger()} currentMonitoNames={this.state.currentMonitoNames} onFormSubmit={this.getNew}  />
+         )
+      }
+      else if (this.state.userControl == "edit") {
+      
+        return <>
+<StationFormP1 currentName={this.state.currentMonListName} currentID={this.state.currentMonListID} currentMonitoNames={this.state.currentMonitoNames} onFormSubmit={this.getNew} />
+          {/* < MonListFormV3 MonNamesString={this.state.currentMonitoNames} />                                                                                                                                                        */}
+        </>
+      }
+      else if (this.state.userControl == "read") {
+
+        // if (this.state.userControl == "create") {
+        return <>
+          <MonListHeadGrid />
+          {monLisTable}
+          {/* <h5>monlistcomp</h5> */}
+
+        </>
+      }
+    }
+
 
 
 
@@ -194,15 +187,13 @@ export default class MonitorListComp extends Component {
 
       <Box sx={{ width: 800 }}>
         <Stack spacing={1}>
-         
           {headComponent()}
-          
           {contentV2()}
-          <MonListForm />
-       
-        </Stack> 
+          {/* <MonListForm /> */}
+        </Stack>
       </Box >
 
     );
+
   }
 }
