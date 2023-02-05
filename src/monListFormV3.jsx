@@ -60,9 +60,19 @@ export default class MonNamesApp extends Component {
     //Get The Id of mon to delete
     //create new array by filtering all mons except tasl width itemId 
     onDeleteMon = (itemId) => {
+        const  localMonNames=[...this.state.MonNames].filter((m) => m.id !== itemId)
         this.setState({
             MonNames: [...this.state.MonNames].filter((m) => m.id !== itemId),
         });
+     
+        let monString=""
+        localMonNames.forEach((item)=>{     
+ monString= monString + item.name +","
+        })
+        monString = monString.slice(0, -1);
+       
+       this.props.GetMonitorsNames(monString)
+ 
     };
 
     //Change State To Edit
