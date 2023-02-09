@@ -11,7 +11,7 @@ import ResponsiveAppBar from './CrudButtons'
 import MonListFormV2 from './monListFormV2';
 //import MonNamesApp from './monListFormV3'
 import MonitorListComp from './monListComp';
-import ButtonTest from './buttontest';
+// import ButtonTest from './buttontest';
 
 
 function TabPanel(props) {
@@ -68,13 +68,15 @@ export default function ObjectsComp() {
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
         <Tab label="Destinations" {...a11yProps(0)} />
-        <Tab label="Monitor lists" {...a11yProps(1)} />
+        <Tab label="Monitor lists" {...a11yProps(1)}  />
         <Tab label="Values" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
 
       </Tabs>
       <TabPanel value={value} index={0}>
+      
         <DestinationCompV2c />
+     
         {/* <DestinationCompV3c /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
