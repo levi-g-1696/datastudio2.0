@@ -56,7 +56,8 @@ export default function ObjectsComp() {
   };
 
   return (
-    <Box
+  <>
+  <Box
       sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
     >
       <Tabs
@@ -93,5 +94,18 @@ export default function ObjectsComp() {
       </TabPanel>
 
     </Box>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Layout2 />}>
+        
+          <Route path= "vals" element ={<Home /> } />
+          
+        <Route path="*" element={<NoPage />} />
+      </Route>
+    </Routes>
+    </BrowserRouter>
+  
+  </>
+    
   );
 }

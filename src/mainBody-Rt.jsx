@@ -11,7 +11,7 @@ export default function MainBodyRT() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
+          <Route path="Sessions" element={<Blogs />} />
           <Route path="objects" element={<Objects />} />
             <Route path= "vals" element ={<Home /> } />
             

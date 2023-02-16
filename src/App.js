@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 // import MonListComp from './monListComp'
 // import StationNameForm from './statinNameForm';
 // import StationFormPart1 from './stationFormP1';
+import ValuesComp from './valsComp'
 import MainBodyRT from './mainBody-Rt'
 
 export default function App() {
@@ -31,8 +32,9 @@ export default function App() {
 		
 		<div className='container'>
 				<Head />
+				<ValuesComp />
 		{/* <MainBody /> */}
-			<MainBodyRT />
+			{/* <MainBodyRT /> */}
 			<Bottom />
 			</div>
 	);
