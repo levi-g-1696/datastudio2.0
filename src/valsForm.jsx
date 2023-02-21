@@ -2,6 +2,8 @@ import React from 'react';
 import './formCSS/bootstrap.min.css'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack'
+import SelectSmall from './valsMlistSelect';
+import EditVals from './editVals';
 
 
 
@@ -16,7 +18,12 @@ export default class ValsForm extends React.Component {
         this.handleCancel = this.handleCancel.bind(this);
         this.inputChanged = this.inputChanged.bind(this);
     }
+    //====================================================================
+    stations = [{ id: 1, Name: "Meteorology1f" }, { id: 2, Name: "Meteorology10m-stdf" },
+    { id: 15, Name: "Precipitationf" }]
 
+    testget= (item)=>{alert("testget "+item)}
+   // ===========================
     inputChanged(e) {
         //--GENRIC UPDATE FOR ALL INPUTS EXSIT IN FORM--
 
@@ -30,6 +37,7 @@ export default class ValsForm extends React.Component {
         // this.props.handleCancel();
 
     }
+   
     // handleMonitors= (monListString)=> {
        
     //     this.setState({
@@ -67,11 +75,14 @@ export default class ValsForm extends React.Component {
                             <label for="Name" className="col-sm-2 col-form-label">Name:</label>
                             <input type="text" onChange={this.inputChanged} className="form-control" name="Name" id="Name" placeholder="Name" value={this.state.Name} />
                         </div>                   
-                       
+                      
                         <br></br>
+                        <div className="form-group row">
+                        <SelectSmall stations={this.stations} callback={this.testget} />
+                        </div>    
                         <h6>Edit value ranges:</h6>
                           <br></br>
-                
+                <EditVals />
 						<br></br>
                         <Stack spacing={1} direction="row">
 						  <Button size="small" type="submit" variant="contained">Save object</Button> 

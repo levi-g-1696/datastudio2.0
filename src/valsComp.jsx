@@ -147,7 +147,7 @@ export default class ValuesComp extends Component {
                         <Stack spacing={60} direction="row">
                             <h4>Edit values </h4>
                         </Stack>
-                        <SelectSmall stations={this.stations} callback={this.testget} />
+                       
                         <ValsForm />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
