@@ -50,7 +50,7 @@ ONedit = (item) => {
     <ValsTab onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} columns={[valsrow.id, valsrow.tag, valsrow.StartVal,valsrow.EndVal]}>
         <Stack spacing={2} direction="row">
             <Button size="small" variant="contained" onClick={event => this.ONedit(valsrow)} >edit</Button>
-            <Button size="small" variant="contained" color="error" onClick={event => this.ONremove(valsrow.id)}  >remove</Button>
+            {/* <Button size="small" variant="contained" color="error" onClick={event => this.ONremove(valsrow.id)}  >remove</Button> */}
         </Stack>
     </ValsTab>)
 

@@ -11,6 +11,7 @@ import ResponsiveAppBar from './CrudButtons'
 import MonListFormV2 from './monListFormV2';
 //import MonNamesApp from './monListFormV3'
 import MonitorListComp from './monListComp';
+import ValuesComp from './valsComp';
 // import ButtonTest from './buttontest';
 
 
@@ -85,11 +86,11 @@ export default function ObjectsComp() {
       
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <ValuesComp />
         {/* <ButtonTest callback={alert("getcancel click ")} /> */}
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        <ValuesComp />
       </TabPanel>
 
     </Box>
