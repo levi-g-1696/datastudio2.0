@@ -47,7 +47,11 @@ function a11yProps(index) {
     'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
-
+const valsLst=[ { id: 10, Name: 'Meteo1m-1', monListID: 1, monListName: "Meteorology1m" },
+{ id: 550, Name: 'Meteo1m-2', monListID: 1, monListName: "Meteorology1m" },
+{ id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" },
+{ id: 150, Name: 'rain10m-1', monListID: 15, monListName: "Precipitation" },
+]
 export default function ObjectsComp() {
   const [value, setValue] = React.useState(0);
 
@@ -86,11 +90,11 @@ export default function ObjectsComp() {
       
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ValuesComp />
+        <ValuesComp valsListArr={valsLst}/>
         {/* <ButtonTest callback={alert("getcancel click ")} /> */}
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <ValuesComp />
+        <ValuesComp  />
       </TabPanel>
 
     </Box>

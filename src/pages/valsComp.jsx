@@ -20,21 +20,22 @@ import ValsForm from './valsForm';
 
 
 export default class ValuesComp extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             userControl: "read",
             userAction: "",
-            valsLists: [
+           valsLists:props.valsListArr,
+            // valsLists: [
 
 
-                { id: 10, Name: 'Meteo1m-1', monListID: 1, monListName: "Meteorology1m" },
-                { id: 20, Name: 'Meteo1m-2', monListID: 1, monListName: "Meteorology1m" },
-                { id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" },
-                { id: 150, Name: 'rain10m-1', monListID: 15, monListName: "Precipitation" },
+            //     { id: 10, Name: 'Meteo1m-1', monListID: 1, monListName: "Meteorology1m" },
+            //     { id: 20, Name: 'Meteo1m-2', monListID: 1, monListName: "Meteorology1m" },
+            //     { id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" },
+            //     { id: 150, Name: 'rain10m-1', monListID: 15, monListName: "Precipitation" },
 
 
-            ],
+            // ],
             currentVals: { id: -1, Name: "empty", monListID: -11, monListName: "EMPTY" },
             currentValsID: "-1",
             currentValsName: "defoult",
@@ -75,32 +76,7 @@ export default class ValuesComp extends Component {
     //=========================================================================
     testget= (item)=>{alert("testget "+item)}
     render() {
-        //::::::::::::::::::::::::::::::::::::::::::::::::::
-        //     const contentV2 = () => {
-        //         let str1 = this.randomInteger()
-
-        //         if (this.state.userControl == "create") {
-        //           return (         
-        //               <StationFormP1 currentName={""} currentID={this.randomInteger()} currentMonitoNames={this.state.currentMonitoNames} onFormSubmit={this.getNew}  />
-        //            )
-        //         }
-        //         else if (this.state.userControl == "edit") {
-
-        //           return <>
-        //   <StationFormP1 currentName={this.state.currentMonListName} currentID={this.state.currentMonListID} currentMonitoNames={this.state.currentMonitoNames} onFormSubmit={this.getNew} />
-        //             {/* < MonListFormV3 MonNamesString={this.state.currentMonitoNames} />                                                                                                                                                        */}
-        //           </>
-        //         }
-        //         else if (this.state.userControl == "read") {
-
-        //           // if (this.state.userControl == "create") {
-        //           return <>
-        //             <MonListHeadGrid />
-        //             {monLisTable}
-        //             {/* <h5>monlistcomp</h5> */}
-
-        //           </>
-        //         }
+        
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         const ObjViewHeader = (props) => {
             return (
@@ -148,7 +124,7 @@ export default class ValuesComp extends Component {
                             <h4>Edit values </h4>
                         </Stack>
                        
-                        <ValsForm />
+                        <ValsForm current={this.state.currentVals}/>
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>

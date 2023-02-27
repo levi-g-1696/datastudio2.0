@@ -23,13 +23,13 @@ export default function ValsTab(props) {
         <Grid item xs={3} >
           <Item>{props.columns[1]}</Item>
         </Grid>
-        <Grid item xs={1} >
+        <Grid item xs={3} >
           <Item>{props.columns[2]}</Item>
         </Grid>
-        <Grid item xs={1} >
+        <Grid item xs={3} >
           <Item>{props.columns[3]}</Item>
         </Grid>
-        <Grid item xs={4} >
+        <Grid item xs={2} >
           <Item>{props.children}</Item>
         </Grid>     
       </Grid>

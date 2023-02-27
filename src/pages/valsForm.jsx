@@ -8,10 +8,10 @@ import EditVals from './editVals';
 
 
 export default class ValsForm extends React.Component {
-    constructor() {
-        super();
-        this.state = {id:666, Name: "fases", currentMonListID:15,
-            currentMonListName:"pprecip"}
+    constructor(props) {
+        super(props);
+        this.state = {id:props.current.id, Name: props.current.Name, currentMonListID:props.current.monListID,
+            currentMonListName:props.current.monListName}
       //  this.nameChanged = this.nameChanged.bind(this);
       //  this.emailChanged = this.emailChanged.bind(this);
         this.submit = this.submit.bind(this);
@@ -62,13 +62,13 @@ export default class ValsForm extends React.Component {
 
 
     render() {
-     
+     const v= this.props.c
         return (
 
             <div className="container" style={{ width: "700px" }}>
                 <div className='jumbotron' >
 
-                <label for="id" className="col-sm-2 col-form-label">ID: {this.props.currentID}</label>
+                <label for="id" className="col-sm-2 col-form-label">ID: {this.state.id}</label>
                     <form onSubmit={this.submit}>
                     <Button size="small" type="submit" variant="contained">Save object</Button> 
                         <div className="form-group row">

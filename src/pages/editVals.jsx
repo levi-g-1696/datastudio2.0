@@ -17,7 +17,7 @@ export default class EditVals extends Component {
   constructor() {
     super();
     this.state = {
-      currentTag: "monRH", currentStartVal: 1, currentEndVal: 20,
+      currentid:"",currentTag: "", currentStartVal: "", currentEndVal: "",
       valsList:[ {id:202,tag:"monRH", StartVal: 1, EndVal: 20},{id:203,tag:"monSA",StartVal: 6, EndVal: 80},
       {id:205,tag:"monWS", StartVal: 10, EndVal: 20},{id:233,tag:"monWD",StartVal: 306, EndVal: 230 }]
     }
@@ -37,13 +37,27 @@ export default class EditVals extends Component {
 }
 //=======================================================================================
 ONedit = (item) => {
-    this.setState({ currentTag:  item.tag, currentStartVal:item.StartVal, currentEndVal: item.EndVal })
+    this.setState({ currentid: item.id, currentTag:item.tag, currentStartVal:item.StartVal, currentEndVal: item.EndVal })
 
     // this.setState({ currentMonListID: item.ID, currentMonListName: item.Name, currentMonitoNames: item.MonitorNames })
     this.setState({ userControl: "edit" })
-
-
 }
+
+//===================================================
+onSubmitEdit = (e) => {
+  e.preventDefault();
+  const newlist=  this.state.valsList.map(v =>{ 
+    if (v.id===this.state.currentid){
+      v.StartVal= this.state.currentStartVal
+      v.EndVal = this.state.currentEndVal      
+    }
+    return v
+  })
+  
+  this.setState({ valsList: [...newlist] });
+  this.setState({currentid:"",currentTag: "", currentStartVal: "", currentEndVal: ""})
+};
+//=====================================================================
   render() {
     const valsTable = this.state.valsList.map((valsrow) =>
     //    <ValsGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} MonitorNames={valsrow.MonitorNames} />)
@@ -78,9 +92,10 @@ ONedit = (item) => {
               id="currentEndVal"
               onChange={this.inputChanged }
             />
+            <Button size="small" type="submit" variant="contained" onClick={this.onSubmitEdit}>Apply</Button>
           </Stack>
 <br />
-          <Button size="small" type="submit" variant="contained" onClick={this.onSubmitEditmon}>Update Item</Button>
+          
 
 
         </form>
