@@ -25,7 +25,7 @@ export default class ValuesComp extends Component {
         this.state = {
             userControl: "read",
             userAction: "",
-           valsLists:props.valsListArr,
+            valsLists: props.valsListArr,
             // valsLists: [
 
 
@@ -36,9 +36,9 @@ export default class ValuesComp extends Component {
 
 
             // ],
-            currentVals: { id: -1, Name: "empty", monListID: -11, monListName: "EMPTY" },
-            currentValsID: "-1",
-            currentValsName: "defoult",
+            currentVals: { id: "", Name: "", monListID: "", monListName: "" },
+            currentValsID: "",
+            currentValsName: "",
 
         }
     }
@@ -47,11 +47,13 @@ export default class ValuesComp extends Component {
     //==========================================================================================
     handleClickSave = () => { alert("save") }
     handleClickNew = () => {
-
+        const getNewValsObjID=  Math.random()*10000
         this.setState({
             userControl: "create"
         });
+        this.setState({currentVals:{ id: getNewValsObjID, Name: "", monListID: "", monListName: "" }})
     }
+     
     //--------------------------------------------
 
     //------------------------------------------------------
@@ -74,9 +76,9 @@ export default class ValuesComp extends Component {
 
     }
     //=========================================================================
-    testget= (item)=>{alert("testget "+item)}
+    testget = (item) => { alert("testget " + item) }
     render() {
-        
+
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         const ObjViewHeader = (props) => {
             return (
@@ -85,8 +87,18 @@ export default class ValuesComp extends Component {
                 </>
             )
         }
-const editMode= ()=> {if (this.state.userControl === "edit") return true ;
-                           else return false };
+
+        //====================================================================
+
+        const editMode = () => {
+            if (this.state.userControl === "edit") return true;
+            else return false
+        };
+      
+        
+
+        //======================================================================== 
+
         const valsTable = this.state.valsLists.map((valsrow) =>
             //    <ValsGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} MonitorNames={valsrow.MonitorNames} />)
             <ValsGrid onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} columns={[valsrow.id, valsrow.Name, valsrow.monListID, valsrow.monListName]}>
@@ -124,8 +136,8 @@ const editMode= ()=> {if (this.state.userControl === "edit") return true ;
                         <Stack spacing={60} direction="row">
                             <h4>Edit values </h4>
                         </Stack>
-                       
-                        <ValsForm current={this.state.currentVals} editMode={editMode} />
+
+                        <ValsForm current={this.state.currentVals} editMode={true} />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>
@@ -137,11 +149,24 @@ const editMode= ()=> {if (this.state.userControl === "edit") return true ;
 
         }
 
+        else if (this.state.userControl === "create") {
+            
+            return (
+                <ObjViewHeader>
+                    <Stack spacing={2} direction="column">
+                        <Stack spacing={60} direction="row">
+                            <h4>Create new object </h4>
+                        </Stack>
+
+                        <ValsForm current= {this.state.currentVals} editMode={false}  />
+                        {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
+                       {valsTable}  */}
+                    </Stack>
+                </ObjViewHeader>)
+
+        }
 
 
 
     }
-
-
-
 }

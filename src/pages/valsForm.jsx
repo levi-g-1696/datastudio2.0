@@ -11,7 +11,7 @@ export default class ValsForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {id:props.current.id, Name: props.current.Name, currentMonListID:props.current.monListID,
-            currentMonListName:props.current.monListName,editMode:true}
+            currentMonListName:props.current.monListName,editMode:props.editMode}
       //  this.nameChanged = this.nameChanged.bind(this);
       //  this.emailChanged = this.emailChanged.bind(this);
         this.submit = this.submit.bind(this);
@@ -82,7 +82,7 @@ export default class ValsForm extends React.Component {
                         <div className="form-group row">
                         <SelectSmall stations={this.stations} callback={this.testget} editMode= {this.state.editMode}/>
                         </div>    
-                        <h6>Edit value ranges:</h6>
+                      
                           <br></br>
                 <EditVals />
 						<br></br>
