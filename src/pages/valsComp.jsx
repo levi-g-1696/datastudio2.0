@@ -85,7 +85,8 @@ export default class ValuesComp extends Component {
                 </>
             )
         }
-
+const editMode= ()=> {if (this.state.userControl === "edit") return true ;
+                           else return false };
         const valsTable = this.state.valsLists.map((valsrow) =>
             //    <ValsGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} MonitorNames={valsrow.MonitorNames} />)
             <ValsGrid onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} columns={[valsrow.id, valsrow.Name, valsrow.monListID, valsrow.monListName]}>
@@ -124,7 +125,7 @@ export default class ValuesComp extends Component {
                             <h4>Edit values </h4>
                         </Stack>
                        
-                        <ValsForm current={this.state.currentVals}/>
+                        <ValsForm current={this.state.currentVals} editMode={editMode} />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>
