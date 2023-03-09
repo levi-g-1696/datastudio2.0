@@ -17,12 +17,23 @@ export default class ValsForm extends React.Component {
         this.submit = this.submit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.inputChanged = this.inputChanged.bind(this);
+         this.selectedStation =''
     }
     //====================================================================
     stations = [{ id: 1, Name: "Meteorology1f" }, { id: 2, Name: "Meteorology10m-stdf" },
     { id: 15, Name: "Precipitationf" }]
 
-    testget= (item)=>{alert("testget "+item)}
+   
+    getStation=(id)=>    {
+        this.selectedStation= [...this.stations].filter((item)=>(item.id === parseInt(id)))                       
+         return this.selectedStation                                        
+                         } 
+                         
+stationMenu()
+{if (this.state.editMode) {let id=this.state.currentMonListID
+    let res=[...this.getStation(id)]
+                          return res }                           
+    else return this.stations}
    // ===========================
     inputChanged(e) {
         //--GENRIC UPDATE FOR ALL INPUTS EXSIT IN FORM--
@@ -47,10 +58,10 @@ export default class ValsForm extends React.Component {
         e.preventDefault();//DISABLE AUTO SUBMIT
         
         
-        const newVals = {id:this.state.currentID, Name: this.state.currentName, currentMonListID: this.state.currentMonListID ,
-            currentMonListName:this.state.currentMonListName};
+        const newVals = {id:this.state.id, Name: this.state.Name, monListID: this.selectedStation[0].id ,
+            monListName:this.selectedStation[0].Name};
 
-      //  this.props.onFormSubmit(newVals)
+        this.props.onFormSubmit(newVals)
         //make an object and return it with callback
         // this.props.getNewDestination(this.state.)
         //AJAX REQUEST ASP.NET API POST CONTRLLER
@@ -63,7 +74,7 @@ export default class ValsForm extends React.Component {
 
     render() {
        
-        if (this.state.editMode=== true) {this.stations = [{ id:this.state.currentMonListID, Name: this.state.currentMonListName }]}
+        
         
         return (
 
@@ -80,14 +91,14 @@ export default class ValsForm extends React.Component {
                       
                         <br></br>
                         <div className="form-group row">
-                        <SelectSmall stations={this.stations} callback={this.testget} editMode= {this.state.editMode}/>
+                        <SelectSmall stations={this.stationMenu()} callback={this.getStation} editMode= {this.state.editMode}/>
                         </div>    
                       
                           <br></br>
                 <EditVals />
 						<br></br>
                         <Stack spacing={1} direction="row">
-						  <Button size="small" type="submit" variant="contained">Save object</Button> 
+						  <Button size="small" type="submit" variant="contained" onClick={this.submit}>Save object</Button> 
                           {/* <Button size="small"  variant="contained" onClick={this.handleCancel }  >cancel</Button>  */}
                           </Stack>
                     </form>

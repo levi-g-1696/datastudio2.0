@@ -76,6 +76,14 @@ export default class ValuesComp extends Component {
 
     }
     //=========================================================================
+    onSubmitNew= obj=> { let myid=obj.id 
+        alert("valscomp have received vals obj with id:"+ myid)
+       
+      
+        this.setState({ valsLists: this.state.valsLists.concat(obj) })
+        this.returnToReadMode()
+    
+    }
     testget = (item) => { alert("testget " + item) }
     render() {
 
@@ -137,7 +145,7 @@ export default class ValuesComp extends Component {
                             <h4>Edit values </h4>
                         </Stack>
 
-                        <ValsForm current={this.state.currentVals} editMode={true} />
+                        <ValsForm current={this.state.currentVals} editMode={true} onFormSubmit= {this.onSubmitNew}/>
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>
@@ -158,7 +166,7 @@ export default class ValuesComp extends Component {
                             <h4>Create new object </h4>
                         </Stack>
 
-                        <ValsForm current= {this.state.currentVals} editMode={false}  />
+                        <ValsForm current= {this.state.currentVals} editMode={false} onFormSubmit= {this. onSubmitNew}  />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>
