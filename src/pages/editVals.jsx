@@ -14,13 +14,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default class EditVals extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
     this.state = {
       currentid:"",currentTag: "", currentStartVal: "", currentEndVal: "",
-      valsList:[ {id:202,tag:"monRH", StartVal: 1, EndVal: 20},{id:203,tag:"monSA",StartVal: 6, EndVal: 80},
-      {id:205,tag:"monWS", StartVal: 10, EndVal: 20},{id:233,tag:"monWD",StartVal: 306, EndVal: 230 }]
+      valsList:[...this.stringToVals(this.props.vals)]
+      // valsList:[ {id:202,tag:"monRH", StartVal: 1, EndVal: 20},{id:203,tag:"monSA",StartVal: 6, EndVal: 80},
+      // {id:205,tag:"monWS", StartVal: 10, EndVal: 20},{id:233,tag:"monWD",StartVal: 306, EndVal: 230 }]
     }
+    
   };
   inputChanged= (e)=> {
     //--GENRIC UPDATE FOR ALL INPUTS EXSIT IN FORM--
@@ -56,9 +59,47 @@ onSubmitEdit = (e) => {
   
   this.setState({ valsList: [...newlist] });
   this.setState({currentid:"",currentTag: "", currentStartVal: "", currentEndVal: ""})
+  let result= this.valsTostring()
+  this.props.GetValsList(result)
 };
+//=================================================
+valsTostring=()=>{
+ 
+let  strtag=''
+let strStartVal=''
+let strEndVal=''
+this.state.valsList.forEach((el)=> {strtag= strtag +el.tag +"," 
+strStartVal= strStartVal+ el.StartVal+","
+strEndVal=   strEndVal+ el.EndVal+","
+}); 
+strtag = strtag.substring(0, strtag.length - 1);//remove "," at the end
+strStartVal = strStartVal.substring(0, strStartVal.length - 1);//remove "," at the end
+strEndVal = strEndVal.substring(0, strEndVal.length - 1);//remove "," at the end
+return strtag +"/" + strStartVal+ "/" + strEndVal
+
+}
+//====================================================
+stringToVals=(str)=>{var fields = str.split('/')
+                     const strtag= fields[0]
+                    const strStartVal=fields[1]
+                     const strEndVal= fields[2]
+                     var arrTag= strtag.split(',')
+                     var arrStartVal= strStartVal.split(',')
+                     var arrEndVal= strEndVal.split(',')
+                   
+                     let arrObj=[]
+                     for (let i = 0; i < arrTag.length; i++) {
+                          let elem= {id:Math.random()*10000,
+                          tag:arrTag[i],StartVal:arrStartVal[i],EndVal:arrEndVal[i]}
+                          arrObj.push(elem)
+                   }
+                   return arrObj
+}
 //=====================================================================
+ valsTest= ()=>{var x= this.stringToVals(this.props.vals)
+                          return x}
   render() {
+    
     const valsTable = this.state.valsList.map((valsrow) =>
     //    <ValsGrid onRemove={this.ONremove} onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} MonitorNames={valsrow.MonitorNames} />)
     <ValsTab onEdit={this.ONedit} ID={valsrow.id} Name={valsrow.Name} columns={[valsrow.id, valsrow.tag, valsrow.StartVal,valsrow.EndVal]}>

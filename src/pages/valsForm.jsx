@@ -11,13 +11,15 @@ export default class ValsForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {id:props.current.id, Name: props.current.Name, currentMonListID:props.current.monListID,
-            currentMonListName:props.current.monListName,editMode:props.editMode}
+            currentMonListName:props.current.monListName,editMode:props.editMode, vals: props.current.vals}
       //  this.nameChanged = this.nameChanged.bind(this);
       //  this.emailChanged = this.emailChanged.bind(this);
         this.submit = this.submit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.inputChanged = this.inputChanged.bind(this);
          this.selectedStation =''
+       let  valsList=[ {id:202,tag:"monRH", StartVal: 1, EndVal: 20},{id:203,tag:"monSA",StartVal: 6, EndVal: 80},
+      {id:205,tag:"monWS", StartVal: 10, EndVal: 20},{id:233,tag:"monWD",StartVal: 306, EndVal: 230 }]
     }
     //====================================================================
     stations = [{ id: 1, Name: "Meteorology1f" }, { id: 2, Name: "Meteorology10m-stdf" },
@@ -28,7 +30,11 @@ export default class ValsForm extends React.Component {
         this.selectedStation= [...this.stations].filter((item)=>(item.id === parseInt(id)))                       
          return this.selectedStation                                        
                          } 
-                         
+
+    getAndSaveVals= (arrOfObj)  => {
+
+        
+    }                   
 stationMenu()
 {if (this.state.editMode) {let id=this.state.currentMonListID
     let res=[...this.getStation(id)]
@@ -59,7 +65,7 @@ stationMenu()
         
         
         const newVals = {id:this.state.id, Name: this.state.Name, monListID: this.selectedStation[0].id ,
-            monListName:this.selectedStation[0].Name};
+            monListName:this.selectedStation[0].Name, vals:this.state.vals};
 
         this.props.onFormSubmit(newVals)
         //make an object and return it with callback
@@ -95,7 +101,8 @@ stationMenu()
                         </div>    
                       
                           <br></br>
-                <EditVals />
+                         <EditVals GetValsList= {(vl)=> {this.setState({vals:vl})
+                                                         }}  vals= {this.state.vals}/>
 						<br></br>
                         <Stack spacing={1} direction="row">
 						  <Button size="small" type="submit" variant="contained" onClick={this.submit}>Save object</Button> 
