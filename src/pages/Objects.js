@@ -48,8 +48,8 @@ function a11yProps(index) {
   };
 }
 const valsLst=[ { id: 10, Name: 'Meteo1m-1', monListID: 1, monListName: "Meteorology1m" },
-{ id: 550, Name: 'Meteo1m-2', monListID: 1, monListName: "Meteorology1m" ,vals:"mg,mn/9,9/88,88"},
-{ id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" ,vals:"mg,mn/9,9/88,88"},
+{ id: 550, Name: 'Meteo1m-2', monListID: 1, monListName: "Meteorology1m" ,vals:"mg,momWS/9,23/88,88"},
+{ id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" ,vals:"mTE,mn/0,9/100,88"},
 { id: 150, Name: 'rain10m-1', monListID: 15, monListName: "Precipitation" ,vals:"mg,mn/9,9/88,88"},
 ]
 export default function ObjectsComp() {

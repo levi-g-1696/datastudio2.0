@@ -57,21 +57,15 @@ export default class EditVals extends Component {
     return (<Stack>
       <h2> Edit Vals </h2>
       <div className="App">
-
-
-
         <form onSubmit={this.onSubmitEditmon}>
-
           <Stack spacing={1} direction="row" >
             <input type="text" className="form-control" name="currentTag" id="currentTag"
               value={this.state.currentTag}
-
             />
             <input type="text" className="form-control" name="currentStartVal" id="currentStartVal"
               value={this.state.currentStartVal}
 
-              onChange={this.inputChanged}
-            />
+              onChange={this.inputChanged}            />
             <input
               value={this.state.currentEndVal}
               name="currentEndVal"

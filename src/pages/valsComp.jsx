@@ -17,6 +17,7 @@ import { Component } from 'react';
 
 import Button from '@mui/material/Button';
 import ValsForm from './valsForm';
+import ValsFormCreateNew from './valsFormCreateNew';
 
 
 export default class ValuesComp extends Component {
@@ -51,7 +52,7 @@ export default class ValuesComp extends Component {
         this.setState({
             userControl: "create"
         });
-        this.setState({currentVals:{ id: getNewValsObjID, Name: "", monListID: "", monListName: "" }})
+        this.setState({currentVals:{ id: getNewValsObjID, Name: "", monListID: "", monListName: "" ,vals:"mon1/0/0"}})
     }
      
     //--------------------------------------------
@@ -68,7 +69,9 @@ export default class ValuesComp extends Component {
     }
     //=======================================================================================
     ONedit = (item) => {
+        this.setState({ valsLists: [...this.state.valsLists].filter((v) => v.id !== item.id) })
         this.setState({ currentVals: { ...item } })
+       
 
         // this.setState({ currentMonListID: item.ID, currentMonListName: item.Name, currentMonitoNames: item.MonitorNames })
         this.setState({ userControl: "edit" })
@@ -77,8 +80,8 @@ export default class ValuesComp extends Component {
     }
     //=========================================================================
     onSubmitNew= obj=> { let myid=obj.id 
-        alert("valscomp have received vals obj with id:"+ myid)
-        alert("valscomp have received vals obj with vals:"+ obj.vals)
+        //alert("valscomp have received vals obj with id:"+ myid)
+      //  alert("valscomp have received vals obj with vals:"+ obj.vals)
       
         this.setState({ valsLists: this.state.valsLists.concat(obj) })
         this.returnToReadMode()
@@ -166,7 +169,7 @@ export default class ValuesComp extends Component {
                             <h4>Create new object </h4>
                         </Stack>
 
-                        <ValsForm current= {this.state.currentVals} editMode={false} onFormSubmit= {this. onSubmitNew}  />
+                        <ValsFormCreateNew id={Math.random() * 1000000} editMode={false} onFormSubmit= {this. onSubmitNew}  />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>
