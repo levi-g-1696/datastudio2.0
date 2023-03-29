@@ -11,20 +11,32 @@ export default class ValsFormCreateNew extends React.Component {
     constructor(props) {
         super(props);
         this.state = {id:props.id, Name: "", currentMonListID:"",
-            currentMonListName:"",editMode:false, vals: ""}
+            currentMonListName:"",editMode:false, vals: props.vals}
       //  this.nameChanged = this.nameChanged.bind(this);
       //  this.emailChanged = this.emailChanged.bind(this);
         this.submit = this.submit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.inputChanged = this.inputChanged.bind(this);
-         this.selectedStation =''
+        this.selectedStation =''
+        this.stations = this.props.stations
        
     }
     //====================================================================
-    stations = [{ id: 1, Name: "Meteorology1f" }, { id: 2, Name: "Meteorology10m-stdf" },
-    { id: 15, Name: "Precipitationf" }]
-
    
+
+   initValsDict= (stationid)=>{
+    let dict={}
+    this.stations.forEach(element => {
+       let id= element.id 
+       let monString= element.MonitorNames
+       let monArr= monString.split(",")
+       let zeroString=''
+       monArr.forEach(tag => {zeroString= zeroString +"0," })
+       zeroString= zeroString.slice(0, -1)
+       dict[id]=monString+"/"+zeroString+ "/" + zeroString
+    });
+    return dict[stationid]
+   }
     getStation=(id)=>    {
         this.selectedStation= [...this.stations].filter((item)=>(item.id === parseInt(id)))                       
          return this.selectedStation                                        
@@ -57,7 +69,7 @@ stationMenu()
         
         
         const newVals = {id:this.state.id, Name: this.state.Name, monListID: this.selectedStation[0].id ,
-            monListName:this.selectedStation[0].Name, vals:this.state.vals};
+            monListName:this.selectedStation[0].Name, vals:this.initValsDict(this.selectedStation[0].id)};
 
         this.props.onFormSubmit(newVals)
         //make an object and return it with callback
@@ -71,9 +83,8 @@ stationMenu()
 
 
     render() {
-       
-        
-        
+      
+        const x=  this.initValsDict(1)
         return (
 
             <div className="container" style={{ width: "700px" }}>
@@ -89,7 +100,7 @@ stationMenu()
                       
                         <br></br>
                         <div className="form-group row">
-                        <SelectSmall stations={this.stationMenu()} callback={this.getStation} editMode= {this.state.editMode}/>
+                        <SelectSmall stations={this.stations} callback={this.getStation} editMode= {this.state.editMode}/>
                         </div>                                          	
                     </form>
                     <br></br>

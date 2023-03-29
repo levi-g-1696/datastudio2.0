@@ -27,6 +27,7 @@ export default class ValuesComp extends Component {
             userControl: "read",
             userAction: "",
             valsLists: props.valsListArr,
+            
             // valsLists: [
 
 
@@ -40,13 +41,15 @@ export default class ValuesComp extends Component {
             currentVals: { id: "", Name: "", monListID: "", monListName: "" },
             currentValsID: "",
             currentValsName: "",
-
         }
+        
     }
-    stations = [{ id: 1, Name: "Meteorology1m" }, { id: 2, Name: "Meteorology10m-std" },
-    { id: 15, Name: "Precipitation" }]
+     stations =this.props.stationsArr
+    // stations = [{ id: 1, Name: "Meteorology1m" }, { id: 2, Name: "Meteorology10m-std" },
+    // { id: 15, Name: "Precipitation" }]
     //==========================================================================================
     handleClickSave = () => { alert("save") }
+ //   initValsDict= (id)=>{this.stations}
     handleClickNew = () => {
         const getNewValsObjID=  Math.random()*10000
         this.setState({
@@ -169,7 +172,7 @@ export default class ValuesComp extends Component {
                             <h4>Create new object </h4>
                         </Stack>
 
-                        <ValsFormCreateNew id={Math.random() * 1000000} editMode={false} onFormSubmit= {this. onSubmitNew}  />
+                        <ValsFormCreateNew id={Math.random() * 1000000} editMode={false} onFormSubmit= {this. onSubmitNew}  vals={ "mX,mY/0,0/0,0"} stations={this.stations} />
                         {/* <ValsGrid columns={["id", "Name", "monList id", "MonList Name"]}> Action </ValsGrid>
                        {valsTable}  */}
                     </Stack>

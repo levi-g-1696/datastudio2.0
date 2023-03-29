@@ -19,21 +19,12 @@ import MonListFormV3 from './monListFormV3';
 import StationFormP1 from './stationFormP1'
 
 export default class MonitorListComp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userControl: "read",
       userAction: "",
-      monLists: [
-
-
-        { id: 1, Name: 'Meteorology1m', MonitorNames: 'T2m,RH,WS,WD' },
-        { id: 2, Name: 'Meteorology10m-std', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre' },
-        { id: 5, Name: 'Meteorology10m-full', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre,monPREC10' },
-        { id: 15, Name: 'Precipitation', MonitorNames: 'monPREC10,monBV' },
-
-
-      ],
+      monLists: props.monLists,
       currentMonListID: "-1",
       currentMonListName: "defoult",
       currentMonitoNames: "mon1"
@@ -49,7 +40,7 @@ export default class MonitorListComp extends Component {
     return Math.floor(Math.random() * (max - min) + min);
   }
   //----------------------
-  handleClickSave = () => { alert("save") }
+  handleClickSave = () => { this.props.callback(this.state.monLists) }
   handleClickNew = () => {
 
     this.setState({

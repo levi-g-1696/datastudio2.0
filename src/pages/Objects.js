@@ -40,7 +40,7 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-const checkcallback = (s) => { alert("got:" + s) }
+
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
@@ -52,9 +52,21 @@ const valsLst=[ { id: 10, Name: 'Meteo1m-1', monListID: 1, monListName: "Meteoro
 { id: 50, Name: 'Meteo10m-1', monListID: 2, monListName: "Meteorology10m-std" ,vals:"mTE,mn/0,9/100,88"},
 { id: 150, Name: 'rain10m-1', monListID: 15, monListName: "Precipitation" ,vals:"mg,mn/9,9/88,88"},
 ]
+let monLists =[
+
+
+  { id: 1, Name: 'Meteorology1m', MonitorNames: 'T2m,RH,WS,WD' },
+  { id: 2, Name: 'Meteorology10m-std', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre' },
+  { id: 5, Name: 'Meteorology10m-full', MonitorNames: 'monT2m,monRH,monWS,monWD,monWSmax,monPre,monPREC10' },
+  { id: 15, Name: 'Precipitation', MonitorNames: 'monPREC10,monBV' },
+
+
+]
 export default function ObjectsComp() {
   const [value, setValue] = React.useState(0);
-
+  const checkcallback = (ml) => {     
+    monLists = [...ml]
+    }
   const handleChange = (event, newValue) => {
     setValue(newValue);
    
@@ -85,12 +97,12 @@ export default function ObjectsComp() {
         {/* <DestinationCompV3c /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <MonitorListComp />
+        <MonitorListComp monLists={monLists} callback= {checkcallback}/>
         {/* <	MonNamesApp MonNamesString= {"monWS,monPREC10,monT,monRH"} GetMonitorsNames= {checkcallback} /> */}
       
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ValuesComp valsListArr={valsLst}/>
+        <ValuesComp valsListArr={valsLst} stationsArr={monLists}/>
         {/* <ButtonTest callback={alert("getcancel click ")} /> */}
       </TabPanel>
       <TabPanel value={value} index={3}>
